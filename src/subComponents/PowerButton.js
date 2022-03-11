@@ -3,6 +3,7 @@
 
 import React from "react";
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 import { PowerBtn } from "../components/AllSvgs";
 
 const Power = styled.button`
@@ -30,12 +31,18 @@ cursor: pointer;
     box-shadow: 0 0 8px 6px rgba(0,255,0,0.2);
 }
 
+&>*:first-child{
+    color: inherit;
+}
+
 `
 
 const PowerButton = () => {
     return (
     <Power>
-        <PowerBtn fill='currentColor' />
+        <NavLink to="/">
+            <PowerBtn width={30} height={30} fill='currentColor' />
+        </NavLink>
     </Power>
     )
 }
