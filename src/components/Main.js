@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useState } from 'react'
+import styled, { keyframes } from 'styled-components'
 import { NavLink } from 'react-router-dom'
 import PowerButton from '../subComponents/PowerButton'
 import LogoComponent from '../subComponents/LogoComponent'
@@ -45,7 +45,7 @@ z-index: 1;
 `
 
 const WORK = styled(NavLink)`
-color: ${props => props.theme.text};
+color:  ${props => props.click ? props.theme.body: props.theme.text};
 position: absolute;
 top: 45%;
 left: calc(1rem + 2vw);
@@ -64,7 +64,7 @@ display: flex;
 justify-content: space-evenly;
 `
 const ABOUT = styled(NavLink)`
-color: ${props => props.theme.text};
+color: ${props => props.click ? props.theme.body: props.theme.text};
 text-decoration: none;
 z-index: 1;
 `
@@ -73,11 +73,19 @@ color: ${props => props.theme.text};
 text-decoration: none;
 z-index: 1;
 `
+const rotate = keyframes`
+from{
+    transform: rotate(0);
+}
+to{
+    transform: rotate(360deg);
+}
+`
 
 const Center = styled.button`
 position: absolute;
-top: 50%;
-left: 50%;
+top: ${props => props.click ? '85%' : '50%' };
+left: ${props => props.click ? '92%' : '50%' };
 transform: translate(-50%, -50%);
 border: none;
 outline: none;
@@ -88,22 +96,47 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+transition: all 1s ease;
+
+&>:first-child{
+    animation: ${rotate} infinite 1.5s linear;
+}
 
 &>:last-child{
     padding-top: 1rem;
+    display: ${props => props.click ? 'none' : 'inline-block' }  
 }
 `
 
+const DarkDiv = styled.div`
+position: absolute;
+top: 0;
+background-color: #000;
+bottom: 0;
+right: 50%;
+width: ${props => props.click ? '50%' : '0%'};
+height: ${props => props.click ? '100%' : '0%'};
+z-index: 1;
+transition: height 0.5s ease, width 1s ease 0.5s;
+
+`
 
 const Main = () => {
+
+    const [click, setClick] = useState(false);
+
+    const handleClick = () => setClick(!click)
+
     return (
         <MainContainer>
+            <DarkDiv click={click} />
             <Container>
                 <PowerButton />
                 <LogoComponent />
-                <SocialIcons />
-                <Center>
-                    <YinYang width={150} height={150} fill='currentColor' />
+                <SocialIcons theme={click ? 'dark' : 'light'}/>
+                
+                <Center click={click}>
+                    <YinYang onClick={()=> handleClick()} width={click ? 120: 200} height={200} fill='currentColor' />
                     <span>click here</span>
                 </Center>
                 <Contact target="_blank" to={{pathname:"/"}}>
@@ -116,13 +149,13 @@ const Main = () => {
                         Blog
                     </h2>
                 </BLOG>
-                <WORK to={{pathname:"/work"}}>
+                <WORK to="/work" click={click}>
                     <h2>
                         Work
                     </h2>
                 </WORK>
                 <BottomBar>
-                    <ABOUT to={{pathname:"/about"}}>
+                    <ABOUT to="/about" click={click}>
                         <h2>
                             About
                         </h2>

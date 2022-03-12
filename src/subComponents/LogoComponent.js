@@ -16,7 +16,7 @@ z-index: 3;
 const LogoComponent = () => {
     return (
     <Logo>
-        JC
+        JoeChris
     </Logo>
     )
 }
