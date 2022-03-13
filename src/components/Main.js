@@ -6,6 +6,8 @@ import LogoComponent from '../subComponents/LogoComponent'
 import SocialIcons from '../subComponents/SocialIcons'
 import { YinYang } from './AllSvgs'
 import Intro from './Intro'
+import { motion } from 'framer-motion'
+
 
 
 const MainContainer = styled.div`
@@ -141,14 +143,20 @@ const Main = () => {
                     <span>click here</span>
                 </Center>
                 <Contact target="_blank" to={{pathname:"/"}}>
-                    <h2>
+                    <motion.h2
+                    whileHover={{scale: 1.1}}
+                    whileTap={{scale: 0.9}}
+                    >
                         Say hi..
-                    </h2>
+                    </motion.h2>
                 </Contact>
-                <BLOG target="_blank" to={{pathname:"/"}}>
-                    <h2>
+                <BLOG target="_blank" to={{pathname:"/blog"}}>
+                    <motion.h2
+                    whileHover={{scale: 1.1}}
+                    whileTap={{scale: 0.9}}
+                    >
                         Blog
-                    </h2>
+                    </motion.h2>
                 </BLOG>
                 <WORK to="/work" click={click}>
                     <h2>
@@ -157,14 +165,20 @@ const Main = () => {
                 </WORK>
                 <BottomBar>
                     <ABOUT to="/about" click={click}>
-                        <h2>
+                        <motion.h2
+                        whileHover={{scale: 1.1}}
+                        whileTap={{scale: 0.9}}
+                        >
                             About
-                        </h2>
+                        </motion.h2>
                     </ABOUT>
                     <SKILLS to={{pathname:"/skills"}}>
-                        <h2>
+                        <motion.h2
+                        whileHover={{scale: 1.1}}
+                        whileTap={{scale: 0.9}}
+                        >
                             My Skills
-                        </h2>
+                        </motion.h2>
                     </SKILLS>
                 </BottomBar>
             </Container>
